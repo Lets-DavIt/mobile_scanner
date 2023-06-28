@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_application_1/constants/routes.dart';
+import 'barcode.dart';
+
+void main() {
+  runApp(const DashboardPage());
+}
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: ListView(
-          children: <Widget>[
-            Text('Dashboard'),
-            
-            RawMaterialButton(
-                child: Text(
-                  'Voltar',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(LOGIN);
-                })
-          ],
+    return MaterialApp(
+      title: 'QRCode Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.grey[900],
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.tealAccent,
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 36),
+            onPrimary: Colors.black,
+            textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          ),
         ),
       ),
+      themeMode: ThemeMode.dark,
+      home: const QRCodePage(),
     );
   }
 }
