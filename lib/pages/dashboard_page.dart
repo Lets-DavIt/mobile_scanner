@@ -11,7 +11,7 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'QRCode Demo',
+      title: 'Barcode Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -26,7 +26,7 @@ class DashboardPage extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.dark,
-      home: const QRCodePage(),
+      home: const BarCodePage(),
     );
   }
 }

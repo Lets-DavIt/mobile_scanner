@@ -1,39 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-class QRCodePage extends StatefulWidget {
-  const QRCodePage({Key? key}) : super(key: key);
+class BarCodePage extends StatefulWidget {
+  const BarCodePage({Key? key}) : super(key: key);
 
   @override
-  State<QRCodePage> createState() => _QRCodePageState();
+  State<BarCodePage> createState() => _BarCodePageState();
 }
 
-class _QRCodePageState extends State<QRCodePage> {
+class _BarCodePageState extends State<BarCodePage> {
   String ticket = '';
   List<String> tickets = [];
 
-  readQRCode() async {
+  readBarCode() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
-      "#FFFFFF",
+      "#FF0000",
       "Cancelar",
       false,
       ScanMode.BARCODE,
     );
     setState(() => ticket = code != '-1' ? code : 'Não validado');
-
-    // Stream<dynamic>? reader = FlutterBarcodeScanner.getBarcodeStreamReceiver(
-    //   "#FFFFFF",
-    //   "Cancelar",
-    //   false,
-    //   ScanMode.QR,
-    // );
-    // if (reader != null)
-    //   reader.listen((code) {
-    //     setState(() {
-    //       if (!tickets.contains(code.toString()) && code != '-1')
-    //         tickets.add(code.toString());
-    //     });
-    //   });
   }
 
   @override
@@ -49,14 +35,14 @@ class _QRCodePageState extends State<QRCodePage> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 24.0),
                 child: Text(
-                  'Ticket: $ticket',
+                  'O código de barras é: $ticket', // texto, fazer outra coluna apenas para o ticket
                   style: const TextStyle(fontSize: 20),
                 ),
               ),
             ElevatedButton.icon(
-              onPressed: readQRCode,
-              icon: const Icon(Icons.qr_code),
-              label: const Text('Validar'),
+              onPressed: readBarCode,
+              icon: const Icon(Icons.barcode_reader), //icon
+              label: const Text('Ler'),
             ),
           ],
         ),
