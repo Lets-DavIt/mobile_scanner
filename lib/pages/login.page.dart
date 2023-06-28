@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/routes.dart';
 import 'package:flutter_application_1/services/login_api.dart';
+import 'package:flutter_application_1/services/token_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,16 +26,11 @@ class _LoginPageState extends State<LoginPage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final apiService = LoginApi();
         final data = await apiService.login(email, pwd, 'cliente');
-
         prefs.setString('token', data['token']);
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Colors.green,
-            content: Text('Sucesso.'),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+        final tokenProvider =
+            Provider.of<TokenProvider>(context, listen: false);
+        await tokenProvider.setToken(data['token']);
+        tokenProvider.notifyListeners();
 
         Navigator.of(context).pushNamed(DASHBOARD);
       } catch (error) {

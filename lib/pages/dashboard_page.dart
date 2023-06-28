@@ -13,7 +13,6 @@ class DashboardPage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             Text('Dashboard'),
-            
             RawMaterialButton(
                 child: Text(
                   'Voltar',

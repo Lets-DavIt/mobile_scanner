@@ -31,8 +31,6 @@ class LoginApi {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
 
-      print(jsonData);
-
       final token = jsonData['token'];
       final user = jsonData['user'];
       return {'token': token, 'user': user};
