@@ -22,6 +22,17 @@ class _BarCodePageState extends State<BarCodePage> {
     setState(() => ticket = code != '-1' ? code : 'Não validado');
   }
 
+  //Scanner para QRCODE
+  readQrCode() async {
+    String code = await FlutterBarcodeScanner.scanBarcode(
+      "#FF0000",
+      "Cancelar",
+      false,
+      ScanMode.QR,
+    );
+    setState(() => ticket = code != '-1' ? code : 'Não validado');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,17 +43,28 @@ class _BarCodePageState extends State<BarCodePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (ticket != '')
-              Padding(
-                padding: const EdgeInsets.only(bottom: 24.0),
-                child: Text(
-                  'O código de barras é: $ticket', // texto, fazer outra coluna apenas para o ticket
-                  style: const TextStyle(fontSize: 20),
+              const Column(
+                children: [Text(
+                  'O código de barras é:',
+                  style: TextStyle(fontSize: 20),
                 ),
+                ],
+              ),
+            if (ticket != '')
+              Column(
+                children: [
+                  Text(
+                    ticket,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  const Padding(padding: EdgeInsets.only(bottom: 20.0)),
+                  // Adicione qualquer outro widget relacionado ao ticket aqui
+                ],
               ),
             ElevatedButton.icon(
               onPressed: readBarCode,
               icon: const Icon(Icons.barcode_reader), //icon
-              label: const Text('Ler'),
+              label: const Text('Escanear'),
             ),
           ],
         ),
