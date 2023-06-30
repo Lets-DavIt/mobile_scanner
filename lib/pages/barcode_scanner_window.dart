@@ -17,12 +17,15 @@ class _BarcodeScannerWithScanWindowState
   Barcode? barcode;
   BarcodeCapture? capture;
 
-  String? barcodeNumber = '-1';
+  String? barcodeNumber = '';
 
   Future<void> onDetect(BarcodeCapture barcode) async {
     capture = barcode;
     setState(() => this.barcode = barcode.barcodes.first);
     setState(() => barcodeNumber = barcode.barcodes.first.displayValue);
+    if(barcodeNumber != null && barcodeNumber!.length >= 47) {
+      Navigator.pop(context, barcodeNumber);
+    }
   }
 
   MobileScannerArguments? arguments;
@@ -103,13 +106,13 @@ class _BarcodeScannerWithScanWindowState
                   icon: Icon(Icons.arrow_back),
                   color: Colors.white,
                   onPressed: () {
-                    if(barcodeNumber == '-1'){
+                    if(barcodeNumber == ''){
                       setState(() {
                         barcodeNumber = 'Não validado.';
                       });
                     }
                     //Navigator.of(context).pop();
-                    Navigator.pop(context, this.barcodeNumber);
+                    Navigator.pop(context, barcodeNumber);
                   },
                 ),
               ),

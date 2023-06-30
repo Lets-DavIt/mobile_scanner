@@ -24,8 +24,6 @@ class _DashboardPageState extends State<DashboardPage> {
           .pushNamed(SCANNER, arguments: barcodeNumber);
       if (result != null) {
         setState(() {
-          print("<---------------------------------->");
-          print(result);
           setState(() {
             barcodeNumber = result as String;
           });
@@ -62,16 +60,25 @@ class _DashboardPageState extends State<DashboardPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Barcode Number: $barcodeNumber',
-                style: TextStyle(fontSize: 20),
-              ) ,
-              SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(
+              if (barcodeNumber != '')
+                Column(
+                  children: [
+                    const Text(
+                      'O código escaneado foi:',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Text(
+                      barcodeNumber,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    const Padding(padding: EdgeInsets.only(bottom: 20.0)),
+                    // Adicione qualquer outro widget relacionado ao ticket aqui
+                  ],
+                ),
+              ElevatedButton.icon(
                 onPressed: example,
-                child: const Text('Open Scanner'),
+                icon: const Icon(Icons.barcode_reader),
+                label: const Text('escanear'),
               ),
             ],
           ),
