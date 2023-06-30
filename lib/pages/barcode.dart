@@ -22,7 +22,7 @@ class _BarCodePageState extends State<BarCodePage> {
     setState(() => ticket = code != '-1' ? code : 'Não validado');
   }
 
-  //Scanner para QRCODE
+  // Scanner para QRCODE
   readQrCode() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
       "#FF0000",
@@ -42,29 +42,42 @@ class _BarCodePageState extends State<BarCodePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (ticket != '')
-              const Column(
-                children: [Text(
-                  'O código de barras é:',
-                  style: TextStyle(fontSize: 20),
-                ),
-                ],
-              ),
+            const Text(
+              'Menu de Escaneamento',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
             if (ticket != '')
               Column(
                 children: [
+                  const Text(
+                    'O código escaneado foi:',
+                    style: TextStyle(fontSize: 20),
+                  ),
                   Text(
                     ticket,
-                    style: const TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20),
                   ),
                   const Padding(padding: EdgeInsets.only(bottom: 20.0)),
                   // Adicione qualquer outro widget relacionado ao ticket aqui
                 ],
               ),
-            ElevatedButton.icon(
-              onPressed: readBarCode,
-              icon: const Icon(Icons.barcode_reader), //icon
-              label: const Text('Escanear'),
+            SizedBox(
+              width: 200, // Defina a largura desejada para os botões
+              child: ElevatedButton.icon(
+                onPressed: readBarCode,
+                icon: const Icon(Icons.barcode_reader), // Icon
+                label: const Text('BarCode'),
+              ),
+            ),
+            const SizedBox(height: 10), // Espaço entre os botões
+            SizedBox(
+              width: 200, // Defina a largura desejada para os botões
+              child: ElevatedButton.icon(
+                onPressed: readQrCode,
+                icon: const Icon(Icons.qr_code), // Icon
+                label: const Text('QRCode'),
+              ),
             ),
           ],
         ),
