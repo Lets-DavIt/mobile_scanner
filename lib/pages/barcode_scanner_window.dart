@@ -17,12 +17,12 @@ class _BarcodeScannerWithScanWindowState
   Barcode? barcode;
   BarcodeCapture? capture;
 
-  String? barcodeNumber = 'teste';
+  String? barcodeNumber = '-1';
 
   Future<void> onDetect(BarcodeCapture barcode) async {
     capture = barcode;
     setState(() => this.barcode = barcode.barcodes.first);
-    setState(() => this.barcodeNumber = barcode.barcodes.first.displayValue);
+    setState(() => barcodeNumber = barcode.barcodes.first.displayValue);
   }
 
   MobileScannerArguments? arguments;
@@ -82,7 +82,7 @@ class _BarcodeScannerWithScanWindowState
                           height: 50,
                           child: FittedBox(
                             child: Text(
-                              barcode?.displayValue ?? 'Scan something!',
+                              barcode?.displayValue ?? 'Aponte a câmera para o código de barras!',
                               overflow: TextOverflow.fade,
                               style: Theme.of(context)
                                   .textTheme
@@ -97,16 +97,18 @@ class _BarcodeScannerWithScanWindowState
                 ),
               ),
               Positioned(
-                bottom: 16, // Ajuste a posição vertical conforme necessário
-                right: 16, // Ajuste a posição horizontal conforme necessário
-                child: RawMaterialButton(
-                  // icon: Icon(
-                  //   Icons.arrow_back,
-                  //   color: Colors.white,
-                  // ),
-                  child: Text('Voltar', style: TextStyle(color: Colors.white),),
+                left: 10,
+                bottom: 45,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  color: Colors.white,
                   onPressed: () {
-                    // Quando o botão de voltar for pressionado, retorna à tela anterior
+                    if(barcodeNumber == '-1'){
+                      setState(() {
+                        barcodeNumber = 'Não validado.';
+                      });
+                    }
+                    //Navigator.of(context).pop();
                     Navigator.pop(context, this.barcodeNumber);
                   },
                 ),

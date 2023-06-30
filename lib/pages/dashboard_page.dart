@@ -20,7 +20,8 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     void example() async {
-      final result = await Navigator.of(context).pushNamed(SCANNER, arguments: barcodeNumber);
+      final result = await Navigator.of(context)
+          .pushNamed(SCANNER, arguments: barcodeNumber);
       if (result != null) {
         setState(() {
           print("<---------------------------------->");
@@ -50,7 +51,8 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
       themeMode: ThemeMode.dark,
       routes: {
-        SCANNER: (_) => BarcodeScannerWithScanWindow(), // Adicione a rota para a página do scanner de códigos de barras
+        SCANNER: (_) =>
+            BarcodeScannerWithScanWindow(), // Adicione a rota para a página do scanner de códigos de barras
       },
       home: Scaffold(
         appBar: AppBar(
@@ -63,6 +65,9 @@ class _DashboardPageState extends State<DashboardPage> {
               Text(
                 'Barcode Number: $barcodeNumber',
                 style: TextStyle(fontSize: 20),
+              ) ,
+              SizedBox(
+                height: 16,
               ),
               ElevatedButton(
                 onPressed: example,
