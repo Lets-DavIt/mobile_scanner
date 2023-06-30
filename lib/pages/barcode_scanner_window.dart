@@ -17,9 +17,12 @@ class _BarcodeScannerWithScanWindowState
   Barcode? barcode;
   BarcodeCapture? capture;
 
+  String? barcodeNumber = 'teste';
+
   Future<void> onDetect(BarcodeCapture barcode) async {
     capture = barcode;
     setState(() => this.barcode = barcode.barcodes.first);
+    setState(() => this.barcodeNumber = barcode.barcodes.first.displayValue);
   }
 
   MobileScannerArguments? arguments;
@@ -29,7 +32,7 @@ class _BarcodeScannerWithScanWindowState
     final scanWindow = Rect.fromCenter(
       center: MediaQuery.of(context).size.center(Offset.zero),
       width: 200,
-      height: 200,
+      height: 500,
     );
     return Scaffold(
       backgroundColor: Colors.black,
@@ -68,6 +71,7 @@ class _BarcodeScannerWithScanWindowState
                 child: Container(
                   alignment: Alignment.bottomCenter,
                   height: 100,
+                  margin: EdgeInsets.only(bottom: 20),
                   color: Colors.black.withOpacity(0.4),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -90,6 +94,21 @@ class _BarcodeScannerWithScanWindowState
                       ),
                     ],
                   ),
+                ),
+              ),
+              Positioned(
+                bottom: 16, // Ajuste a posição vertical conforme necessário
+                right: 16, // Ajuste a posição horizontal conforme necessário
+                child: RawMaterialButton(
+                  // icon: Icon(
+                  //   Icons.arrow_back,
+                  //   color: Colors.white,
+                  // ),
+                  child: Text('Voltar', style: TextStyle(color: Colors.white),),
+                  onPressed: () {
+                    // Quando o botão de voltar for pressionado, retorna à tela anterior
+                    Navigator.pop(context, this.barcodeNumber);
+                  },
                 ),
               ),
             ],
