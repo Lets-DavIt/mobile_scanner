@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/constants/routes.dart';
 import 'barcode.dart';
 
 void main() {
@@ -6,10 +7,14 @@ void main() {
 }
 
 class DashboardPage extends StatelessWidget {
-  const DashboardPage({super.key});
+  const DashboardPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    void example() {
+      Navigator.of(context).pushNamed(SCANNER);
+    }
+
     return MaterialApp(
       title: 'Barcode Demo',
       debugShowCheckedModeBanner: false,
@@ -26,7 +31,18 @@ class DashboardPage extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.dark,
-      home: const BarCodePage(),
+      routes: {
+        SCANNER: (_) => BarCodePage(), // Adicione a rota para a página do scanner de códigos de barras
+      },
+      home: Scaffold(
+        body: Center(
+          child: ElevatedButton(
+            onPressed: example,
+            child: const Text('Open Scanner'), // Adicione o texto do botão
+          ),
+        ),
+      ),
     );
   }
 }
+
