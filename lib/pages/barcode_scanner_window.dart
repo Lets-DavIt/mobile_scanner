@@ -92,6 +92,17 @@ class _BarcodeScannerWithScanWindowState
                   ),
                 ),
               ),
+              Positioned(
+                left: 10,
+                bottom: 25,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  color: Colors.white,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
             ],
           );
         },
