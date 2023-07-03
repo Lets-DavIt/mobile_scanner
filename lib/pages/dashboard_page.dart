@@ -20,13 +20,10 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     void example() async {
-      final result = await Navigator.of(context)
-          .pushNamed(SCANNER, arguments: barcodeNumber);
+      final result = await Navigator.of(context).pushNamed(SCANNER, arguments: barcodeNumber);
       if (result != null) {
         setState(() {
-          setState(() {
-            barcodeNumber = result as String;
-          });
+          barcodeNumber = result as String;
         });
       }
     }
@@ -42,24 +39,27 @@ class _DashboardPageState extends State<DashboardPage> {
             primary: Colors.tealAccent,
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 36),
             onPrimary: Colors.black,
-            textStyle:
-                const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
           ),
         ),
       ),
       themeMode: ThemeMode.dark,
       routes: {
-        SCANNER: (_) =>
-            BarcodeScannerWithScanWindow(), // Adicione a rota para a página do scanner de códigos de barras
+        SCANNER: (_) => BarcodeScannerWithScanWindow(), // Adicione a rota para a página do scanner de códigos de barras
       },
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Dashboard'),
+          title: const Text('Dashboard'),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Text(
+                'Menu de Escaneamento',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
               if (barcodeNumber != '')
                 Column(
                   children: [
@@ -69,7 +69,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                     Text(
                       barcodeNumber,
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                     const Padding(padding: EdgeInsets.only(bottom: 20.0)),
                     // Adicione qualquer outro widget relacionado ao ticket aqui
@@ -78,7 +78,7 @@ class _DashboardPageState extends State<DashboardPage> {
               ElevatedButton.icon(
                 onPressed: example,
                 icon: const Icon(Icons.barcode_reader),
-                label: const Text('escanear'),
+                label: const Text('Escanear'),
               ),
             ],
           ),
@@ -87,3 +87,4 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 }
+
